@@ -1,0 +1,26 @@
+
+
+/**
+ * Financial Literacy
+ *
+ * @author Oskar Klear
+ */
+public final class FinancialLiteracy {
+
+    /**
+     * Default constructor--private to prevent instantiation.
+     */
+    private FinancialLiteracy() {
+        // no code needed here
+    }
+
+    /**
+     * Main method.
+     *
+     * @param args
+     *            the command line arguments; unused here
+     */
+    public static void main(String[] args) 
+    {
+        
+    }
