@@ -10,7 +10,7 @@ import java.util.Scanner;
 public final class FinancialLiteracy {
 
     // Fields so all the methods can access the variables throughout the levels
-    public static int money;
+    public static int money;                        
     public static int finalMoney;
     public static int housePayment;
     public static int carPayment;
@@ -40,16 +40,16 @@ public final class FinancialLiteracy {
      */
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        // Money Options (0-5)
+        // Money Options (0-9)
         int[] moneyOptions = { 30000, 45000, 55000, 70000, 84000, 95000, 120000,
                 170000, 200000 };
-        int[] childrenOptions = { 0, 1, 2, 3 };
-        money = moneyOptions[(int) (Math.random() * moneyOptions.length)];
-        finalMoney = money;
-        children = childrenOptions[(int) (Math.random()
+        int[] childrenOptions = { 0, 1, 2, 3 }; // 0 to 3 number of children
+        money = moneyOptions[(int) (Math.random() * moneyOptions.length)];       // give user random salary
+        finalMoney = money;                                                       
+        children = childrenOptions[(int) (Math.random()                          // give user random number of children
                 * childrenOptions.length)];
-        // We need food, clothes, house, car, insurance, kids
-        // Account for debt, random events, etc.
+        
+        // intro - title, given salary + children
         System.out.println(
                 "Welcome to the Financial Literacy Game! You will be given a set amount of money and children and will budget your money depending on the situations ahead.");
         System.out.println(
@@ -58,17 +58,23 @@ public final class FinancialLiteracy {
         System.out.println("You have $" + money + " for the year.");
         System.out
                 .println("You have " + children + " children to account for.");
+                
         // Delay the text
         try {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
         }
+        
+        // call budget plan methods
         firstLevel();
         secondLevel();
         thirdLevel();
         fourthLevel();
         fifthLevel();
+        
+        // run budget through 12 month simulation w/ random events
         runSimulation();
+        
         /*
          * Close input stream
          */
@@ -77,20 +83,22 @@ public final class FinancialLiteracy {
 
     /**
      * Level one: Select house
-     *
      */
     private static void firstLevel() {
+        // create input
         Scanner in = new Scanner(System.in);
+        // header
         System.out.println(
                 "\n/////////////////////////" + "\n/// Select your House ///\n"
-                        + "/////////////////////////\n");
+                        + "/////////////////////////\n");            
         // Delay the text
         try {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
         }
-        System.out.println("You have $" + money + " left for the year.");
-        int[] costs = { 450, 800, 1050, 1650 };
+        // display remaining money
+        System.out.println("You have $" + money + " left for the year."); 
+        int[] costs = { 450, 800, 1050, 1650 };                                   // housing costs
         System.out.println("You must select a home.");
         // Trailer, one-bed apartment, two-bed apartment, four-bed house
         int choice = 0;
@@ -106,6 +114,8 @@ public final class FinancialLiteracy {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
         }
+        
+        // display detailed housing options
         System.out.println("Which option would you prefer?");
         System.out.println(
                 "1: Trailer - $450 a month, small, dirty, but affordable.");
@@ -117,15 +127,17 @@ public final class FinancialLiteracy {
                 "4: A house - $1650 a month, very spacious, in a nice neighborhood, can fit several people comfortably.");
         System.out.println(
                 "Please enter the number of which living space you would like: ");
-        choice = in.nextInt();
+        choice = in.nextInt(); // receive input
+        
+        // if you have 3 children, cannot live in trailer  
         if (children >= 2 && choice < 2) {
             while (choice < 2) {
                 System.out.println(
                         "You cannot fit three children into that small place. You must choose a larger home.");
                 choice = in.nextInt();
             }
-
         }
+        // cannot be invalid choice
         while (!(1 <= choice && choice <= 4)) {
             System.out.println("Please enter a number between 1-4.");
             choice = in.nextInt();
@@ -135,9 +147,10 @@ public final class FinancialLiteracy {
                             "You cannot fit three children into that small place. You must choose a larger home.");
                     choice = in.nextInt();
                 }
-
             }
         }
+        
+        // set payment for 
         housePayment = (costs[choice - 1]);
         money -= (costs[choice - 1]) * 12;
     }
@@ -621,10 +634,14 @@ public final class FinancialLiteracy {
             }
         }
     }
-
+    
+    /**
+     *  Random events
+     */
     private static int randomEvents(int salary) {
-        Random rand = new Random();
-        int num = 0;
+        Random rand = new Random();                    // create new random
+        // random events occur more often the less money you have left
+        int num = 0;   
         if (salary <= 30000) {
             num = 1 + rand.nextInt(16);
         } else if (salary <= 45000) {
@@ -640,6 +657,7 @@ public final class FinancialLiteracy {
         } else if (salary <= 200000) {
             num = 1 + rand.nextInt(50);
         }
+        // unique events and subsequent consequences
         switch (num) {
             case 1:
                 System.out.println(
@@ -746,6 +764,9 @@ public final class FinancialLiteracy {
         return num;
     }
 
+    /**
+     *  Twelve month simulation
+     */
     private static void runSimulation() {
         boolean passed = true;
         System.out.println(
@@ -808,5 +829,4 @@ public final class FinancialLiteracy {
                     + finalMoney + " remaining! Congratulations!");
         }
     }
-
 }
