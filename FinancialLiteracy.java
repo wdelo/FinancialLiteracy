@@ -140,6 +140,7 @@ public final class FinancialLiteracy {
         }
         housePayment = (costs[choice - 1]);
         money -= (costs[choice - 1]) * 12;
+        in.close();
     }
 
     /**
@@ -373,6 +374,7 @@ public final class FinancialLiteracy {
             System.out.println(
                     "You have selected the " + condition + " " + car + ".");
         }
+        in.close();
     }
 
     /**
@@ -430,6 +432,7 @@ public final class FinancialLiteracy {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
         }
+        in.close();
     }
 
     /**
@@ -492,6 +495,7 @@ public final class FinancialLiteracy {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
         }
+        in.close();
     }
 
     /**
@@ -614,6 +618,7 @@ public final class FinancialLiteracy {
                 }
             }
         }
+        in.close();
     }
 
     private static int randomEvents(int salary) {
